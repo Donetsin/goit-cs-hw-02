@@ -1,0 +1,23 @@
+services:
+  web-app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - SQLALCHEMY_DATABASE_URL=postgresql+psycopg2://postgres:567234@postgres-db:5432/hw02
+    depends_on:
+      - postgres-db
+
+  postgres-db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=567234
+      - POSTGRES_DB=hw02
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
